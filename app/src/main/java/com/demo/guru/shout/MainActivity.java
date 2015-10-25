@@ -38,6 +38,9 @@ public class MainActivity extends Activity {
         pass= (EditText)findViewById(R.id.passinput);
         signin =(Button)findViewById(R.id.signin);
        i = new Intent(getApplicationContext(),Shout.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
      log  = this.getSharedPreferences(LOGINFO,this.MODE_PRIVATE);
 if(log.getBoolean("login",false))
 {

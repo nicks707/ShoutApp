@@ -1,6 +1,7 @@
 package com.demo.guru.shout;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,8 @@ Button logout;
 
     }
 
+
+
     public void logout(View view)
     {
         SharedPreferences log = getSharedPreferences(MainActivity.LOGINFO,this.MODE_PRIVATE);
@@ -28,7 +31,12 @@ Button logout;
         editor.clear();
         editor.commit();
 
-      this.finish();
+   Intent i = new Intent(this,MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+
+        startActivity(i);
 
     }
 
