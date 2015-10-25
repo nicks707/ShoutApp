@@ -79,4 +79,25 @@
         android:layout_marginTop="20dp"
         android:background="#ffffff"
         />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login From facebook"
+        android:id="@+id/button"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginTop="50dp"
+        android:background="#93aee1"
+        android:padding="5sp"
+        android:onClick="fblogin" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="SignUp"
+        android:id="@+id/signup"
+        android:onClick="signUp"
+        android:layout_marginTop="10dp"
+        android:textColor="#ffffff" />
 </LinearLayout>
