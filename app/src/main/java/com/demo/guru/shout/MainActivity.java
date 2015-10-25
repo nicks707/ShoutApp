@@ -7,7 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 public class MainActivity extends Activity {
     EditText user;
@@ -41,7 +44,7 @@ public void signIn(View view)
 
 }
 
-public void signedIn(String a,String b)
+public void signedIn(String email,String pass)
 {
 
 
