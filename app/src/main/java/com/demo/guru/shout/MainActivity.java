@@ -3,6 +3,7 @@ package com.demo.guru.shout;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,8 +22,11 @@ import com.android.volley.toolbox.StringRequest;
 public class MainActivity extends Activity {
     EditText user;
     EditText pass;
+    Intent i;
   public static final String loginUrl ="http://navjotsingh.me/shouts.php";
     ProgressDialog progressDialog;
+    public   static final String LOGINFO = "LogInfo";
+    SharedPreferences  log;
     Button signin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,17 +37,33 @@ public class MainActivity extends Activity {
         user = (EditText)findViewById(R.id.userinput);
         pass= (EditText)findViewById(R.id.passinput);
         signin =(Button)findViewById(R.id.signin);
+       i = new Intent(getApplicationContext(),Shout.class);
+     log  = this.getSharedPreferences(LOGINFO,this.MODE_PRIVATE);
+if(log.getBoolean("login",false))
+{
+    startActivity(i);
+
+}
 
         //progress dialoge
         progressDialog= new ProgressDialog(this);
         progressDialog.setCancelable(false);
     }
 
-public void signIn(View view)
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        progressDialog.hide();
+    }
+
+    public void signIn(View view)
 {
 
     String email = user.getText().toString().trim();
     String password = pass.getText().toString().trim();
+
+
+
 
     if(email.isEmpty() || password.isEmpty())
     {
@@ -67,8 +87,11 @@ String tag_request = "req_signin";
     StringRequest stringRequest = new StringRequest(Request.Method.GET, loginUrl, new Response.Listener<String>() {
         @Override
         public void onResponse(String response) {
-            Intent i = new Intent(getApplicationContext(),Shout.class);
+
             startActivity(i);
+            SharedPreferences.Editor editor = log.edit();
+            editor.putBoolean("login",true);
+            editor.commit();
         }
     }, new Response.ErrorListener() {
         @Override
@@ -87,7 +110,7 @@ VollySingelton.getmInstance().addToRequestQueue(stringRequest,tag_request);
 }
 
     private  void  showDialog()
-    {if(!progressDialog.isShowing())
+    {
         progressDialog.show();
     }
 
