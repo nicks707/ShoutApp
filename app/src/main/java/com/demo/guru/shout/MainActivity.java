@@ -2,6 +2,7 @@ package com.demo.guru.shout;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,7 +21,7 @@ import com.android.volley.toolbox.StringRequest;
 public class MainActivity extends Activity {
     EditText user;
     EditText pass;
-  public static final String loginUrl ="http://navjotsingh.me/shout.php";
+  public static final String loginUrl ="http://navjotsingh.me/shouts.php";
     ProgressDialog progressDialog;
     Button signin;
     @Override
@@ -66,7 +67,8 @@ String tag_request = "req_signin";
     StringRequest stringRequest = new StringRequest(Request.Method.GET, loginUrl, new Response.Listener<String>() {
         @Override
         public void onResponse(String response) {
-
+            Intent i = new Intent(getApplicationContext(),Shout.class);
+            startActivity(i);
         }
     }, new Response.ErrorListener() {
         @Override
