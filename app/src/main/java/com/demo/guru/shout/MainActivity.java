@@ -20,6 +20,7 @@ import com.android.volley.toolbox.StringRequest;
 
 
 public class MainActivity extends Activity {
+//Declarations
     EditText user;
     EditText pass;
     Intent i;
@@ -28,6 +29,8 @@ public class MainActivity extends Activity {
     public   static final String LOGINFO = "LogInfo";
     SharedPreferences  log;
     Button signin;
+
+    //oncrate
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,13 +40,17 @@ public class MainActivity extends Activity {
         user = (EditText)findViewById(R.id.userinput);
         pass= (EditText)findViewById(R.id.passinput);
         signin =(Button)findViewById(R.id.signin);
+
+      //intent for shout page
        i = new Intent(getApplicationContext(),Shout.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+
+    //SharedPreferences for state management of login
      log  = this.getSharedPreferences(LOGINFO,this.MODE_PRIVATE);
 if(log.getBoolean("login",false))
-{
+{//if already saved login go to shout activity
     startActivity(i);
 
 }
@@ -53,11 +60,14 @@ if(log.getBoolean("login",false))
         progressDialog.setCancelable(false);
     }
 
+    //onrestart coming from another activity
     @Override
     protected void onRestart() {
         super.onRestart();
         progressDialog.hide();
     }
+
+
 
     public void signIn(View view)
 {
@@ -67,18 +77,19 @@ if(log.getBoolean("login",false))
 
 
 
-
+//check if input is not empty
     if(email.isEmpty() || password.isEmpty())
     {
         Toast.makeText(getApplicationContext(),"Please Enter both values",Toast.LENGTH_SHORT).show();
     }
     else
-    {
+    {// call signin is input filled
         signedIn(email,password);
 
     }
 
 }
+    //sign in operaton using Volley request
 
 public void signedIn(final String email,final String pass)
 {
@@ -106,11 +117,31 @@ String tag_request = "req_signin";
 
 
     );
-VollySingelton v = VollySingelton.getmInstance();
+
 
 
 VollySingelton.getmInstance().addToRequestQueue(stringRequest,tag_request);
 }
+
+
+    //signup button is pressed
+    public void signUp(View view)
+    {
+        Intent intent = new Intent(this,Signup.class);
+        startActivity(intent);
+
+    }
+
+
+    //fb login is pressed
+    public  void fblogin(View view)
+    {
+
+
+
+    }
+
+
 
     private  void  showDialog()
     {
